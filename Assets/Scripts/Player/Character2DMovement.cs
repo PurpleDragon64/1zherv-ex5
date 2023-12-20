@@ -187,7 +187,7 @@ public class Character2DMovement : MonoBehaviour
     /// </summary>
     void AnimateCharacter()
     {
-	    /*
+		/*
 	     * Task #1a: Orienting the character
 	     *
 	     * Let us start by at least orienting the character, making him face the
@@ -212,8 +212,22 @@ public class Character2DMovement : MonoBehaviour
 	     *   * Persistent heading flag: *mHeadingRight*
 	     *   * Rotating a local rotation by an axis: localRotation *= Quaternion.Euler(...)
 	     */
-	    
-	    var animator = mSelector.charAnimator;
+
+		// set persistent heading
+		if (mInput.move.x > 0)
+		{
+			mHeadingRight = true;
+		}
+		if (mInput.move.x < 0)
+		{
+			mHeadingRight = false;
+		}
+
+		// turn character based on input
+		float direction = mHeadingRight ? 1 : -1;
+		transform.localScale = new Vector3(direction, transform.localScale.y, transform.localScale.z);
+
+        var animator = mSelector.charAnimator;
 	    if (animator != null)
 	    {
 			var currentVerticalSpeed = mController.velocity.y;
